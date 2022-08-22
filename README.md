@@ -1,10 +1,13 @@
-﻿# Run a fast experiment for Kill The King game with Elastic-MCTS against MCTS
-1) Install Visual Studio 2019
-2) Clone this repository
-3) Open `Strategy` folder with VS2019
-4) Compile x64-Release and run `Arena.exe`
+﻿The paper is published on IEEE Conference on Games 2022, a pdf version can be found at arxiv: https://arxiv.org/pdf/2205.15126.pdf
 
-**To see argument used in the experiment, please see the screen output or locate `Stratega/resources/gameConfigurations/TBS/KillTheKing.yaml`**
+# Run a fast experiment for Kill The King game with Elastic-MCTS against MCTS
+
+1) Install Visual Studio 2019.
+2) Clone this repository.
+3) Open the cloned `Strategy` folder with VS2019.
+4) Compile x64-Release and run `Arena.exe`.
+
+**To see arguments used in the experiment, please see the screen outputs or locate `Stratega/resources/gameConfigurations/TBS/KillTheKing.yaml`.**
 The `.yaml` file looks like: 
 
 ```yaml
@@ -24,7 +27,7 @@ The `.yaml` file looks like:
         ContinuePreviousSearch: false
 ```
 
-The screen output looks like
+The screen outputs look like:
 
 ```
 The maps file exist
@@ -55,8 +58,6 @@ ElasticMCTSuParameters
         T_THRESHOLD = 0.3
         earlyStop = 8
 ```
-
-
 
 You can check `Stratega/out/build/x64-Release/bin/sgaLog.yaml` for logs. It looks like this
 
@@ -90,3 +91,4 @@ Game 1:
   year={2022}
 }
 ```
+
