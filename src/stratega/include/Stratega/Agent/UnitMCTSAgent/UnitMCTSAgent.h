@@ -28,6 +28,10 @@ namespace SGA {
             absNodeToStatistics = std::map< int, std::vector< double > >();
 
             treeNodetoAbsNode = std::map< int, int >();
+
+            if (params.DO_STATE_ABSTRACTION) {
+                agentName = "ElasticMCTSuAgent";
+            }
         }
 
         void stepInit()
@@ -63,6 +67,18 @@ namespace SGA {
             UnitMCTSNode* node2,
             double reward_threshold,
             double transition_threshold);
+
+        std::string agentName = "MCTSuAgent";
+
+        const std::string& getName() const override {
+            /*if (parameters_.DO_STATE_ABSTRACTION) {
+                return "ElasticMCTSuAgent";
+            }
+            else {
+                return "MCTSuAgent";
+            }*/
+            return agentName;
+        }
 
         std::map< int, std::vector< UnitMCTSNode* > > depthToNodes;
 

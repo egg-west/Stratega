@@ -1,28 +1,92 @@
-﻿# Stratega
-[![Documentation Status](https://readthedocs.org/projects/stratega/badge/?version=latest)](https://stratega.readthedocs.io/en/latest/?badge=latest)
-[![pypi releases](https://img.shields.io/pypi/v/stratega.svg)](https://pypi.org/project/stratega)
-[![Builds](https://github.com/GAIGResearch/Stratega/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/GAIGResearch/Stratega/actions/workflows/ci.yml)
-[![Python Wheel Builds](https://github.com/GAIGResearch/Stratega/actions/workflows/wheels.yml/badge.svg?branch=dev)](https://github.com/GAIGResearch/Stratega/actions/workflows/wheels.yml)
+﻿# Run a fast experiment for Kill The King game with Elastic-MCTS against MCTS
+1) Install Visual Studio 2019
+2) Clone this repository
+3) Open `Strategy` folder with VS2019
+4) Compile x64-Release and run `Arena.exe`
 
-Stratega aims to provide a fast and flexible framework for researching AI in complex strategy games. Games are configured using YAML-files and can be played through a GUI or by agents using an API. Stratega allows creating a wide variety of turn-based and real-time strategy games. Due to the flexibility of using YAML-files, the user can design and run various games for testing agents without adjusting it to the game.
+**To see argument used in the experiment, please see the screen output or locate `Stratega/resources/gameConfigurations/TBS/KillTheKing.yaml`**
+The `.yaml` file looks like: 
 
-The framework has been built with a focus of statistical forward planning (SFP) agents. For this purpose, agents can access and modify game states and use the forward model to simulate the game. Thanks to the ability to configure a wide range of games and access to the forward model, Stratega is perfectly suited for researching general game playing in complex games.
+```yaml
+    - UnitMCTSAgent:
+        Budget: FMCALLS
+        DoStateAbstraction: true
+        MaxFmCalls: 5000
+        RolloutLength: 10
+        ContinuePreviousSearch: false
+        AbstractionBatch: 8
+        K: 0.1
+    - UnitMCTSAgent:
+        DoStateAbstraction: false
+        Budget: FMCALLS
+        MaxFmCalls: 5000
+        RolloutLength: 10
+        ContinuePreviousSearch: false
+```
 
-# Community
+The screen output looks like
 
-Join the Discord community for help and to talk about what you are doing with Stratega!
+```
+The maps file exist
+Initializing new game
+Player 0 is controlled by ElasticMCTSuAgent
+Player 1 is controlled by MCTSuAgent
+Agent with parameters:
+        PLAYER_ID: 0
+        Budget type: Forward Model calls
+        Max FM Calls (active): 5000
+        Max Iterations (inactive): 10
+        Stop at Perc Time (inactive): 0.9
+        Current FM Calls: 0
+        Current iterations: 0
+        Scripts in portfolio: 0
+        Opponent model by script: RandomActionScript
+        State evaluation heuristic: AimToKingHeuristic
+ElasticMCTSuParameters
+        K = 0.1
+        ROLLOUT_LENGTH= 10
+        ROLLOUTS_ENABLED= 1
+        PRIORITIZE_ROOT= 1
+        MAX_FM_CALLS= 5000
+        EPSILON = 0.01
+        CONTINUE_PREVIOUSE_SEARCH = 0
+        DO_STATE_ABSTRACTION = 1
+        R_THRESHOLD = 0.1
+        T_THRESHOLD = 0.3
+        earlyStop = 8
+```
 
-[![Discord Chat](https://img.shields.io/discord/783231009738719233.svg)](https://discord.gg/Y2uZZ3TSuT)
 
-## Documentation
 
-Full documentation can be found here:
+You can check `Stratega/out/build/x64-Release/bin/sgaLog.yaml` for logs. It looks like this
 
-[stratega.readthedocs.io](https://stratega.readthedocs.io/)
+```yaml
+Game 1:
+  Map: 1
+  Seed: 4692272
+  Battle0:
+    PlayerAssignment: [ElasticMCTSuAgent, MCTSuAgent]
+    ActivePlayer: [0, ..., 0]
+    ActionCount: [25, ..., 5]
+    WinnerID: 0
+    Turns: 28
+  Battle1:
+    PlayerAssignment: [MCTSuAgent, ElasticMCTSuAgent]
+    ActivePlayer: [0, ..., 1]
+    ActionCount: [25, ..., 26]
+    WinnerID: 1
+    Turns: 24
+```
 
-# Gallery
 
-TBS
-![TBS](/images/tbsScreenshot.png)
-RTS
-![RTS](/images/rtsScreenshot.png)
+
+**To cite this paper**
+
+```
+@article{xu2022elastic,
+  title={Elastic Monte Carlo Tree Search with State Abstraction for Strategy Game Playing},
+  author={Xu, Linjie and Hurtado-Grueso, Jorge and Jeurissen, Dominic and Liebana, Diego Perez and Dockhorn, Alexander},
+  journal={arXiv preprint arXiv:2205.15126},
+  year={2022}
+}
+```

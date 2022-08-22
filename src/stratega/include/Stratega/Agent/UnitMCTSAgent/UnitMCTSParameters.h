@@ -33,7 +33,6 @@ namespace SGA {
 
         // approximate homomorhpism
         int batch_size = 20;
-        int n_batch_stop = 2;
         int absBatch = 10000;
 
         // for state abstraction according to the value;
