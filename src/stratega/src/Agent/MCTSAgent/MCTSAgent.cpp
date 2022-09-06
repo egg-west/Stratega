@@ -35,7 +35,7 @@ namespace SGA
         // if there is just one action and we don't spent the time on continuing our search
         // we just instantly return it
         // todo update condition to an and in case we can compare gameStates, since we currently cannot reuse the tree after an endTurnAction
-        if (actionSpace.size() == 1 || !parameters_.continuePreviousSearch)
+        if (actionSpace.size() == 1)
         {
             rootNode = nullptr;
             previousActionIndex = -1;
